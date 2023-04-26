@@ -1,0 +1,96 @@
+{% extends 'team/layout.html.twig' %}
+
+{%  block content %}
+    <style type="text/css">
+        .team__source a {
+            text-decoration: underline;
+        }
+
+        .image-swiper-slide {
+            width: 100%;
+            height: 700px;
+        }
+
+        .image-swiper img {
+            object-fit: cover;
+            object-position: center center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #fff;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #fff;
+        }
+    </style>
+
+    <div class="hero vh-100 position-relative">
+        {% if team.logo %}
+            <img class="hero__image w-100 h-100" src="{{ team.logo }}" alt="Hero">
+        {% else %}
+            <img class="hero__image w-100 h-100" src="{{ asset('Images/hero.jpg') }}" alt="Hero">
+        {% endif %}
+        <h1 class="hero__headline position-absolute w-100 p-4 text-center">{{ team.name }}</h1>
+    </div>
+
+    <div class="content container my-4">
+        <div class="team">
+            <h2>Facts</h2>
+            <p>{{ team.description|raw }}</p>
+            <hr>
+            <p><strong>Founded in:</strong> {{ team.foundedIn|date("Y") }}<br> 
+            <p><strong>Location:</strong> {{ team.location }}
+            <hr>
+            {% if team.trainer %} 
+                 <p><strong>Trainer:</strong> {{ team.trainer }}<br>                    
+            {% endif %}
+            <p><strong>Team Size:</strong> {{ team.members|length }}<br>
+            {% if team.captain %} 
+                <p><strong>Team Captain:</strong> {{ team.captain.name }}
+            {% endif %}
+            <hr>
+            {% if team.source %}
+                <p class="team__source"><strong>Source:</strong>
+                    <a href="{{ team.source.getHref() }}" title="{{ team.source.getTitle() }}" target="{{ team.source.getTarget() }}">Gryffindor Quidditch team</a><br>
+                </p>
+            {% endif %} 
+   
+            {% if team.members %}
+                <h2>Team</h2>
+
+                <ul class="team-members__members">
+                    {% for member in team.members|sort((a, b) => a.number <=> b.number) %}
+                        <li>{{ member.name }} (No. {{ member.number }}): {{ member.duty }}, <i>{{ member.age }} years</i></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            
+            {% if team.images %}
+                <div id="image-swiper" class="swiper image-swiper team-members__swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        {% for image in team.images %}
+                            <div class="swiper-slide image-swiper-slide">                       
+                                <img src="{{ image }}" alt="Team Image 1">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- If we need pagination -->
+                    <div class="swiper-pagination image-swiper-pagination"></div>
+                
+                    <!-- If we need navigation buttons -->
+                    <div class="swiper-button-prev image-swiper-button-prev"></div>
+                    <div class="swiper-button-next image-swiper-button-next"></div>
+                
+                    <!-- If we need scrollbar -->
+                    <div class="swiper-scrollbar image-swiper-scrollbar"></div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

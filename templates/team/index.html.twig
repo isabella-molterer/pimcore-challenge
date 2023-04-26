@@ -1,0 +1,48 @@
+{% extends 'team/layout.html.twig' %}
+
+{%  block content %}
+    <div class="hero vh-100 position-relative">
+        <img class="hero__image w-100 h-100" src="{{ asset('Images/hero.jpg') }}" alt="Hero">
+        <h1 class="hero__headline position-absolute w-100 p-4 text-center">World-famous Quidditch Teams</h1>
+    </div>
+
+    <div class="content container my-4">
+        {% for overview in teamOverviews %}
+            <div class="team">
+                {% if overview.name %}
+                    <h2 class="team__headline">{{ overview.name }}</h2>
+                {% endif %} 
+                {% if overview.description %}
+                    <div class="team__description">
+                        {{ overview.description|raw }}
+                    </div>
+                {% endif %}
+
+                <div class="team__listing row">
+                    {% if overview.teams %}
+                        {% for team in overview.teams %}
+                            <div class="card col-sm-12 col-md-4 my-4 p-0 gx-5">
+                                {% if team.logo %}
+                                    <img class="card-img card-img-top" src="{{ team.logo }}" width="500px" alt="Logo"/>
+                                {% endif %}
+                                <div class="card-body">
+                                    <h3 class="card-title">{{ team.name }}</h3>
+                                    <p class="card-text">{{ team.description|raw }}</p>
+                                    {% if team.members %}
+                                        <p><strong>Team Size:</strong> {{ team.members|length }}<br>
+                                    {% endif %}
+                                    {% if team.captain %}
+                                        <p><strong>Team Captain:</strong> {{ team.captain.name }}<br>
+                                    {% endif %}
+                                    <p><strong>Team Trainer:</strong> {{ team.trainer }}<br>      
+
+                                    <a class="btn btn-dark mt-4 rounded-pill" href="{{ path('team_detail', {id: team.id}) }}">Learn more</a>
+                                </div>
+                            </div>
+                        {% endfor %} 
+                    {% endif %} 
+                </div>
+            </div>
+        {% endfor %} 
+    </div>
+{% endblock %}

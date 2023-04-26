@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Isabella Molterer">
+    <title>Quidditch Teams</title>
+
+    <!-- Begin Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!-- End Bootstrap -->
+    
+    <!-- Begin Swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script type="module">    
+        import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.esm.browser.min.js'
+
+        const swiper = new Swiper('#image-swiper', {
+            // Optional parameters
+            direction: 'horizontal',
+            loop: true,
+            
+            // If we need pagination
+            pagination: {
+                el: '.image-swiper-pagination',
+            },
+            
+            // Navigation arrows
+            navigation: {
+                nextEl: '.image-swiper-button-next',
+                prevEl: '.image-swiper-button-prev',
+            },
+            
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.image-swiper-scrollbar',
+            },
+        });
+    </script>
+    <!-- End Swiper -->
+</head>
+
+<body>
+
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap');
+
+        :root {
+            --font-stack-headline: "Libre Baskerville", Helvetica, serif;
+            --font-stack-text: "Roboto Condensed", Arial, sans-serif;
+        }
+
+        html,
+        body {
+            max-width: 100%;
+            width: 100%;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        body {
+            font-family: var(--font-stack-text);
+            font-weight: 300;
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+
+        h1, 
+        h2, 
+        h3 {
+            font-family: var(--font-stack-headline);
+            width: 100%;
+            hyphens: auto;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+    @media only screen and (min-width: 600px) {
+            h1 {
+                font-size: 3rem;
+            }
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 2rem 0 1rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        img {
+            border: 0;
+        }
+
+        p {
+            padding: 0 0 5px 0;
+        }
+
+        a {
+            color: #000;
+        }
+
+        #logo {
+            text-align: center;
+        }
+
+        #site {
+            margin-bottom: 6rem;
+        }
+
+        #site ul {
+            padding: 10px 0 10px 20px;
+            list-style: circle;
+        }
+
+        .navigation {
+            z-index: 2;
+        }
+
+        .navbar-brand {
+            font-family: var(--font-stack-headline);
+        }
+
+        .navbar-brand img {
+            display: inline-block;
+        }
+
+        .hero {
+            margin-bottom: 6rem;
+            z-index: 1;
+        }
+
+        .hero::before {
+            background: rgba(0, 0, 0, 0.5);
+            content: '';
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+        }
+
+        .hero__image {
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        .hero__headline {
+            color: #fff;
+            text-shadow: 0px 2px 10px #000;
+            text-transform: uppercase;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);            
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        .card {
+            border: none;
+        }
+
+        .card-body {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img {
+            padding: 0 1rem;
+        }
+
+        .card-body {
+            margin: 0 1rem;
+        }
+    </style>
+
+    <div class="navigation position-fixed w-100">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="{{ path('team_overview') }}">
+                <img src="{{ asset('Icons/broom.png') }}" alt="Navbar Icon" />&nbsp;Quidditch Teams 
+            </a>
+        </nav>
+    </div>
+
+    <div id="site">
+        {{ block('content') }}
+    </div>
+
+    <hr>
+
+    <footer class="text-center p-4 m-4">
+        &copy; Isabella Molterer
+    </footer>
+</body>
+</html>
